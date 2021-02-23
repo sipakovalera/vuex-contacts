@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 export default {
   name: "new-contact",
   data() {
@@ -39,14 +39,14 @@ export default {
     },
   },
   methods: {
-    addContact(name, phone, email) {
-      this.$store.commit("addContact", 
+      ...mapActions(["createContact"]),
+      addContact(){
+      this.$store.dispatch("createContact", 
         {
           name: this.contactName, 
           phone: this.contactPhone, 
           email: this.contactEmail
         });
-      console.log(name, phone, email);
       this.resetForm();
     },
     resetForm() {

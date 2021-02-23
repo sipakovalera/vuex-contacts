@@ -2,45 +2,53 @@
   <li>
     <h2>
       <span>{{ name }} ({{ valid ? "valid" : "invalid" }})</span>
-      <button class="delete" @click="deleteContact">X</button>
+      <button class="delete" @click="deleteContact(id)">X</button>
     </h2>
     <button @click="toggleDetails">
       {{ detailsAreVisible ? "Hide" : "Show" }} Details
     </button>
-    <button @click="toggleValid">Toggle Valid</button>
+    <button @click="toggleValid(id)">Toggle Valid</button>
     <ul v-if="detailsAreVisible">
       <li>
         <strong>Phone:</strong>
-        {{ phoneNumber }}
+        {{ phone }}
       </li>
       <li>
         <strong>Email:</strong>
-        {{ emailAdress }}
+        {{ email }}
       </li>
     </ul>
   </li>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 
 export default {
-  emits: ["toggle-valid", "delete-contact"],
+  props: {
+  id: String,
+  name: String,
+  phone: String,
+  email: String,
+  valid: Boolean,
+  },
   name: "contactList",
   data() {
     return {
       detailsAreVisible: false,
     };
   },
-  methods: {
+  methods: {   
+    ...mapActions(["changeValid","removeContact", "editContact"]),
+     deleteContact(id) {
+      this.$store.dispatch("removeContact", id)
+    },
+      toggleValid(id) {
+      this.$store.dispatch("changeValid", id)
+    },
     toggleDetails() {
       this.detailsAreVisible = !this.detailsAreVisible;
-    },
-    toggleValid() {
-      this.$emit("toggle-valid", this.id);
-    },
-    deleteContact() {
-      this.$emit("delete-contact");
-    },
+    }
   },
 };
 </script>

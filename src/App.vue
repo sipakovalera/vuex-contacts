@@ -13,12 +13,6 @@
         :valid="friend.valid"
         :key="friend.id"
         :id="friend.id"
-        @toggle-valid="toggleValid"
-        @delete-contact="
-          () => {
-            deleteContact(friend.id);
-          }
-        "
       ></friend-contact>
     </ul>
   </section>
@@ -28,7 +22,7 @@
 
 import FriendContact from "./components/FriendContact.vue";
 import CreateContact from "./components/CreateContact.vue";
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -39,12 +33,8 @@ export default {
     ...mapGetters(["contactList"])
   },
   methods: {
-    toggleValid(id) {
-      const friend = this.friends.find((friend) => friend.id === id);
-      friend.valid = !friend.valid;
-    },
     deleteContact(id) {
-      this.friends = this.friends.filter((el) => el.id !== id);
+      
     },
   },
 };
