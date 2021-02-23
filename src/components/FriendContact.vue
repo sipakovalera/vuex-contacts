@@ -22,6 +22,7 @@
 </template>
 
 <script>
+
 export default {
   emits: ["toggle-valid", "delete-contact"],
   name: "contactList",

@@ -6,8 +6,13 @@
     <ul>
       <create-contact />
       <friend-contact
-        v-for="friend in friends"
+        v-for="friend in contactList"
+        :name="friend.name"
+        :email="friend.email"
+        :phone="friend.phone"
+        :valid="friend.valid"
         :key="friend.id"
+        :id="friend.id"
         @toggle-valid="toggleValid"
         @delete-contact="
           () => {
@@ -23,15 +28,15 @@
 
 import FriendContact from "./components/FriendContact.vue";
 import CreateContact from "./components/CreateContact.vue";
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
     FriendContact,
     CreateContact,
   },
-  computed:{
-    ...mapState(["friends"])
+    computed:{
+    ...mapGetters(["contactList"])
   },
   methods: {
     toggleValid(id) {
