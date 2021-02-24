@@ -22,7 +22,7 @@
 
 import FriendContact from "./components/FriendContact.vue";
 import CreateContact from "./components/CreateContact.vue";
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -30,12 +30,7 @@ export default {
     CreateContact,
   },
     computed:{
-    ...mapGetters(["contactList"])
-  },
-  methods: {
-    deleteContact(id) {
-      
-    },
+    ...mapGetters("contacts",["contactList"])
   },
 };
 </script>

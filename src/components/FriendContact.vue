@@ -1,7 +1,19 @@
 <template>
   <li>
     <h2>
-      <span>{{ name }} ({{ valid ? "valid" : "invalid" }})</span>
+      <span>
+        <input 
+          type="text" 
+          v-model="name" 
+          @click="toggleInput"
+        >
+          ({{ valid ? "valid" : "invalid" }})
+      </span>
+      <div 
+        id="editName" 
+        @click="editName(name, id)" 
+        v-if="toggleAreVisible"
+      ><i class="fas fa-save"></i></div>
       <button class="delete" @click="deleteContact(id)">X</button>
     </h2>
     <button @click="toggleDetails">
@@ -11,11 +23,29 @@
     <ul v-if="detailsAreVisible">
       <li>
         <strong>Phone:</strong>
-        {{ phone }}
+        <input 
+          type="text" 
+          v-model="phone" 
+          @click="toggleInput"
+        >
+        <span 
+          id="editPhone" 
+          @click="editPhone(phone, id)" 
+          v-if="toggleAreVisible"
+          ><i class="fas fa-save"></i></span>
       </li>
       <li>
         <strong>Email:</strong>
-        {{ email }}
+        <input 
+          type="text" 
+          v-model="email" 
+          @click="toggleInput"
+        >
+        <span 
+          id="editEmail" 
+          @click="editEmail(email, id)" 
+          v-if="toggleAreVisible"
+        ><i class="fas fa-save"></i></span>
       </li>
     </ul>
   </li>
@@ -36,19 +66,35 @@ export default {
   data() {
     return {
       detailsAreVisible: false,
+      toggleAreVisible: false,
     };
   },
   methods: {   
-    ...mapActions(["changeValid","removeContact", "editContact"]),
+    ...mapActions(["editName", "editPhone", "editEmail","changeValid","removeContact"]),
+    editName(name, id){
+      this.$store.dispatch("contacts/editName", {id: id, name: name});
+      this.toggleAreVisible = !this.toggleAreVisible;
+    },
+    editPhone(phone, id){
+      this.$store.dispatch("contacts/editPhone", {id: id, phone: phone});
+      this.toggleAreVisible = !this.toggleAreVisible;
+    },
+     editEmail(email, id){
+      this.$store.dispatch("contacts/editEmail", {id: id, email: email});
+      this.toggleAreVisible = !this.toggleAreVisible;
+    },
      deleteContact(id) {
-      this.$store.dispatch("removeContact", id)
+      this.$store.dispatch("contacts/removeContact", id)
     },
       toggleValid(id) {
-      this.$store.dispatch("changeValid", id)
+      this.$store.dispatch("contacts/changeValid", id)
     },
     toggleDetails() {
       this.detailsAreVisible = !this.detailsAreVisible;
-    }
+    },
+     toggleInput() {
+      this.toggleAreVisible = !this.toggleAreVisible;
+    },
   },
 };
 </script>
@@ -60,5 +106,22 @@ export default {
   border: none !important;
   box-shadow: none !important;
   float: right;
+}
+#editName,
+#editPhone,
+#editEmail{
+  color: black;
+  background-color: #fff;
+  border-color: #fff;
+  margin-left: 20px;
+  padding: 5px;
+}
+input{
+  max-width: 300px;
+  border: none;
+}
+h2{
+  display: flex;
+  justify-content: space-evenly;
 }
 </style>

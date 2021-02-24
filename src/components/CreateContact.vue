@@ -39,9 +39,9 @@ export default {
     },
   },
   methods: {
-      ...mapActions(["createContact"]),
+      ...mapActions("contacts",["createContact"]),
       addContact(){
-      this.$store.dispatch("createContact", 
+      this.$store.dispatch("contacts/createContact", 
         {
           name: this.contactName, 
           phone: this.contactPhone, 
