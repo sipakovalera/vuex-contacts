@@ -10,16 +10,30 @@ export default{
         console.log(state.friends)
     },
     editName:(state, changes) => {
-        state.friends.name = changes.name;
+        state.friends = state.friends.map(el => {
+            if(el.id === changes.id){
+                return {...el, name: changes.name}
+            }
+            return el
+        })
         alert("you change Name")
     },
     editPhone:(state, changes) => {
-        state.friends.phone = changes.phone;
+        state.friends = state.friends.map(el => {
+            if(el.id === changes.id){
+                return {...el, phone: changes.phone}
+            }
+            return el
+        })
         alert("you change Phone")
-        console.log(state.friends);
     },
     editEmail:(state, changes) => {
-        state.friends.email = changes.email;
+        state.friends = state.friends.map(el => {
+            if(el.id === changes.id){
+                return {...el, email: changes.email}
+            }
+            return el
+        })
         alert("you change Email")
     },
     deleteContact:(state, id) => {

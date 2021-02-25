@@ -19,5 +19,5 @@ export default {
         setTimeout(() => {
         commit('deleteContact', id)
         }, 3000)
-    },
+    }
 }

@@ -41,8 +41,7 @@ export default {
   methods: {
       ...mapActions("contacts",["createContact"]),
       addContact(){
-      this.$store.dispatch("contacts/createContact", 
-        {
+      this.createContact({
           name: this.contactName, 
           phone: this.contactPhone, 
           email: this.contactEmail

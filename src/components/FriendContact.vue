@@ -11,10 +11,10 @@
       </span>
       <div 
         id="editName" 
-        @click="editName(name, id)" 
+        @click="editNameToggle(name, id)" 
         v-if="toggleAreVisible"
       ><i class="fas fa-save"></i></div>
-      <button class="delete" @click="deleteContact(id)">X</button>
+      <button class="delete" @click="deleteContact({id})">X</button>
     </h2>
     <button @click="toggleDetails">
       {{ detailsAreVisible ? "Hide" : "Show" }} Details
@@ -30,7 +30,7 @@
         >
         <span 
           id="editPhone" 
-          @click="editPhone(phone, id)" 
+          @click="editPhoneToggle(phone, id)" 
           v-if="toggleAreVisible"
           ><i class="fas fa-save"></i></span>
       </li>
@@ -43,7 +43,7 @@
         >
         <span 
           id="editEmail" 
-          @click="editEmail(email, id)" 
+          @click="editEmailToggle(email, id)" 
           v-if="toggleAreVisible"
         ><i class="fas fa-save"></i></span>
       </li>
@@ -65,29 +65,29 @@ export default {
   name: "contactList",
   data() {
     return {
-      detailsAreVisible: false,
-      toggleAreVisible: false,
+       detailsAreVisible: false,
+       toggleAreVisible: false,
     };
   },
   methods: {   
     ...mapActions(["editName", "editPhone", "editEmail","changeValid","removeContact"]),
-    editName(name, id){
-      this.$store.dispatch("contacts/editName", {id: id, name: name});
+    editNameToggle(name, id){
+      this.editName({id: id, name: name});
       this.toggleAreVisible = !this.toggleAreVisible;
     },
-    editPhone(phone, id){
-      this.$store.dispatch("contacts/editPhone", {id: id, phone: phone});
+    editPhoneToggle(phone, id){
+      this.editPhone({id: id, phone: phone});
       this.toggleAreVisible = !this.toggleAreVisible;
     },
-     editEmail(email, id){
-      this.$store.dispatch("contacts/editEmail", {id: id, email: email});
+     editEmailToggle(email, id){
+      this.editEmail({id: id, email: email});
       this.toggleAreVisible = !this.toggleAreVisible;
     },
      deleteContact(id) {
-      this.$store.dispatch("contacts/removeContact", id)
+      this.removeContact(id)
     },
       toggleValid(id) {
-      this.$store.dispatch("contacts/changeValid", id)
+      this.changeValid(id)
     },
     toggleDetails() {
       this.detailsAreVisible = !this.detailsAreVisible;
