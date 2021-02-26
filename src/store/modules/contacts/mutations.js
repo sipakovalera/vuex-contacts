@@ -7,34 +7,35 @@ export default{
             email: email,
             valid: false
         })
-        console.log(state.friends)
     },
-    editName:(state, changes) => {
+    editInfo:(state, {name, phone, email}) => {
+        if(name){
+            state.friends = state.friends.map(el => {
+                if(el.id === name.id){
+                    return {...el, name: name}
+                }
+                return el
+            })
+            console.log(name.id)
+            console.log(state.friends)
+        }
+        if(phone){
+            state.friends = state.friends.map(el => {
+                if(el.id === phone.id){
+                    return {...el, phone: phone}
+                }
+                return el
+            })
+        }
+    if(email){
         state.friends = state.friends.map(el => {
-            if(el.id === changes.id){
-                return {...el, name: changes.name}
+            if(el.id === email.id){
+                return {...el, email: email}
             }
             return el
         })
-        alert("you change Name")
-    },
-    editPhone:(state, changes) => {
-        state.friends = state.friends.map(el => {
-            if(el.id === changes.id){
-                return {...el, phone: changes.phone}
-            }
-            return el
-        })
-        alert("you change Phone")
-    },
-    editEmail:(state, changes) => {
-        state.friends = state.friends.map(el => {
-            if(el.id === changes.id){
-                return {...el, email: changes.email}
-            }
-            return el
-        })
-        alert("you change Email")
+        console.log(email)
+    }
     },
     deleteContact:(state, id) => {
         state.friends = state.friends.filter((friend) => friend.id !== id);
@@ -42,5 +43,5 @@ export default{
     toggleValid:(state, id) => {
         const friend = state.friends.find((friend) => friend.id === id);
         friend.valid = !friend.valid;
-    }
+    },
 }

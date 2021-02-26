@@ -11,7 +11,7 @@
       </span>
       <div 
         id="editName" 
-        @click="editNameToggle(name, id)" 
+        @click="editParams(name, id)" 
         v-if="toggleAreVisible"
       ><i class="fas fa-save"></i></div>
       <button class="delete" @click="deleteContact({id})">X</button>
@@ -30,7 +30,7 @@
         >
         <span 
           id="editPhone" 
-          @click="editPhoneToggle(phone, id)" 
+          @click="editParams(phone, id)" 
           v-if="toggleAreVisible"
           ><i class="fas fa-save"></i></span>
       </li>
@@ -43,7 +43,7 @@
         >
         <span 
           id="editEmail" 
-          @click="editEmailToggle(email, id)" 
+          @click="editParams(email, id)" 
           v-if="toggleAreVisible"
         ><i class="fas fa-save"></i></span>
       </li>
@@ -70,18 +70,18 @@ export default {
     };
   },
   methods: {   
-    ...mapActions(["editName", "editPhone", "editEmail","changeValid","removeContact"]),
-    editNameToggle(name, id){
-      this.editName({id: id, name: name});
-      this.toggleAreVisible = !this.toggleAreVisible;
-    },
-    editPhoneToggle(phone, id){
-      this.editPhone({id: id, phone: phone});
-      this.toggleAreVisible = !this.toggleAreVisible;
-    },
-     editEmailToggle(email, id){
-      this.editEmail({id: id, email: email});
-      this.toggleAreVisible = !this.toggleAreVisible;
+    ...mapActions(["editInfo","changeValid","removeContact"]),
+    editParams(newName, newPhone, newEmail, id){
+       this.toggleAreVisible = !this.toggleAreVisible;   
+      if(newName){
+        this.editInfo({id: id, name: newName});
+      }
+       if(newPhone){
+        this.editInfo({id: id, phone: newPhone});
+      }
+      if(newEmail){
+        this.editInfo({id: id, email: newEmail});
+      } 
     },
      deleteContact(id) {
       this.removeContact(id)

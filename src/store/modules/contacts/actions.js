@@ -5,19 +5,13 @@ export default {
     createContact:({commit}, {name, phone, email}) => {
         commit('addContact', {name, phone, email})
     },
-    editName :({commit}, changeName) => {
-        commit('editName', changeName)
-    },
-    editPhone :({commit}, changePhone) => {
-        commit('editPhone', changePhone)
-    },
-    editEmail :({commit}, changeEmail) => {
-        commit('editEmail', changeEmail)
+    editInfo :({commit}, {name, phone, email}) => {
+        commit('editInfo', {name, phone, email})
     },
     removeContact: ({commit}, id) => {
         console.log('go delete')
         setTimeout(() => {
         commit('deleteContact', id)
         }, 3000)
-    }
+    },
 }
